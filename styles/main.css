@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', sans-serif;
+}
+
+:root {
+    --background-color: #F6F8FC;
+    --white: white;
+    --search-icon-color: #FF5350;
+}
+
+html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--background-color);
+    padding: 0 10vw;
+    font-family: 'Outfit', sans-serif;
+    display: flex;
+    justify-content: center;
+    background-image: url(src/pokeball-icon.png);
+    background-repeat: no-repeat;
+    background-position-x: -180px;
+    background-position-y: -80px;
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 20px 0;
+
+}
+
+.pokedex-search {
+    width: 100%;
+    background-color: var(--white);
+    border-radius: 25px;
+    padding: 0 20px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.2);
+}
+
+.pokedex-search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+
+
+}
+
+input::placeholder {
+    color: grey;
+    font-size: 18px;
+}
+
+.icon {
+
+    background-color: var(--search-icon-color);
+    box-shadow: 2px 3px 10px var(--search-icon-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding:11px;
+}
+.icon i {
+    color: var(--white);
+
+    
+}
+
+.pokedex-list {
+    width:100%;
+    
+}
