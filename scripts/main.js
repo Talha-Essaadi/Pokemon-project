@@ -46,12 +46,12 @@ async function addNewitems() {
         let data = await fetchData(API);
         // console.log(data.sprites.versions["generation-v"]["black-white"].animated["front_default"]);
         function returnComponent() {
-            if (data.abilities.length < 2) {
+            if (data.types.length < 2) {
                 // alert(index + 1);
                 return "";
             }
             else {
-                return `<div class="item-ability-2 item-ability">${data.abilities[1].ability.name}</div>`;
+                return `<div class="item-ability-2 item-ability">${data.types[1].type.name}</div>`;
             }
         }
         // alert(data.sprites.other.dream_world.front_default);
@@ -64,7 +64,7 @@ async function addNewitems() {
                         <h1 class="item-number">N°${index + 1}</h1>
                         <h1 class="item-name">${data.name}</h1>
                         <div class="item-buttons">
-                            <div class="item-ability-1 item-ability">${data.abilities[0].ability.name}</div>
+                            <div class="item-ability-1 item-ability">${data.types[0].type.name}</div>
                             ${returnComponent()}
                         </div>
                     </div>
@@ -98,18 +98,35 @@ async function handlSlideClick(e) {
 
     let numberElement = e.currentTarget.querySelector(".item-number").textContent;
     const pokemonNumber = parseInt(numberElement.replace("N°", ""));
-    console.log(pokemonNumber);
+    // console.log(pokemonNumber);
     let API = `https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`;
     let data = await fetchData(API);
-    function returnComponent() {
-        if (data.abilities.length < 2) {
+    
+    function returnComponent(stats) {
+        if (stats == data.types){
+              if (data.types.length < 2) {
+            // alert(index + 1);
+            return "";
+        }
+        else {
+            return `<div class="item-ability-2 item-ability">${data.types[1].type.name}</div>`;
+        }
+            
+        }
+        else {
+              if (data.abilities.length < 2) {
             // alert(index + 1);
             return "";
         }
         else {
             return `<div class="item-ability-2 item-ability">${data.abilities[1].ability.name}</div>`;
         }
+
+        }
+      
     }
+
+    let allStats = data.stats[0].base_stat + data.stats[1].base_stat + data.stats[2].base_stat + data.stats[3].base_stat + data.stats[4].base_stat + data.stats[5].base_stat ;
     let slide_1 = `
     
     <div class="pokedex-slide-content">
@@ -140,7 +157,7 @@ async function handlSlideClick(e) {
                             <div class="item-buttons">
                                 <div
                                     class="item-ability-1 item-ability">${data.types[0].type.name}</div>
-                                    ${returnComponent()}
+                                    ${returnComponent(data.types)}
                                 
                                 </div>
                             <div class="pokedex-slide-content-slide-bottom">
@@ -160,13 +177,13 @@ async function handlSlideClick(e) {
                                         <h1
                                             class="height-design-title">Height</h1>
                                         <div
-                                            class="height-design-value">0.7m</div>
+                                            class="height-design-value">${data.height}m</div>
                                     </div>
                                     <div class="height-design">
                                         <h1
                                             class="height-design-title">Weight</h1>
                                         <div
-                                            class="height-design-value">6.9kg</div>
+                                            class="height-design-value">${data.weight}kg</div>
                                     </div>
                                 </div>
                                 <div class="Abilities">
@@ -177,13 +194,15 @@ async function handlSlideClick(e) {
 
                                         <div class="height-design">
 
-                                            <div
-                                                class="height-design-value">Overgrow</div>
+                                            <div class="height-design-value">${data.abilities[0].ability.name}</div>
+                                            
+                                                
                                         </div>
                                         <div class="height-design">
 
                                             <div
-                                                class="height-design-value">Chlorophyll</div>
+                                                class="height-design-value">${data.abilities[1].ability.name}</div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -196,44 +215,44 @@ async function handlSlideClick(e) {
                                             <div
                                                 style="color: white;padding:8.5px; background-color: #DF2140;"
                                                 class="stat-1-design">HP</div>
-                                            <h1 class="stat-1-number">49</h1>
+                                            <h1 class="stat-1-number">${data.stats[0].base_stat}</h1>
                                         </div>
                                         <div class="stat-1">
                                             <div
                                                 style="color: white; background-color: #FF994D;"
                                                 class="stat-1-design">ATK</div>
-                                            <h1 class="stat-1-number">45</h1>
+                                            <h1 class="stat-1-number">${data.stats[1].base_stat}</h1>
                                         </div>
                                         <div class="stat-1">
                                             <div
                                                 style="color: white; background-color: #EECD3D;"
                                                 class="stat-1-design">DEF</div>
-                                            <h1 class="stat-1-number">49</h1>
+                                            <h1 class="stat-1-number">${data.stats[2].base_stat}</h1>
                                         </div>
                                         <div class="stat-1">
                                             <div
                                                 style="color: white; background-color: #85DDFF;"
                                                 class="stat-1-design">SpA</div>
-                                            <h1 class="stat-1-number">65</h1>
+                                            <h1 class="stat-1-number">${data.stats[3].base_stat}</h1>
                                         </div>
                                         <div class="stat-1">
                                             <div
                                                 style="color: white; background-color: #96DA83;"
                                                 class="stat-1-design">SpD</div>
-                                            <h1 class="stat-1-number">65</h1>
+                                            <h1 class="stat-1-number">${data.stats[4].base_stat}</h1>
                                         </div>
                                         <div class="stat-1">
                                             <div
                                                 style="color: white; background-color: #FB94A8;"
                                                 class="stat-1-design">SPD</div>
-                                            <h1 class="stat-1-number">45</h1>
+                                            <h1 class="stat-1-number">${data.stats[5].base_stat}</h1>
                                         </div>
                                         <div style="background-color: #88AAEA;"
                                             class="stat-1">
                                             <div
                                                 style="color: white; background-color: #7195DC;"
                                                 class="stat-1-design">TOT</div>
-                                            <h1 class="stat-1-number">318</h1>
+                                            <h1 class="stat-1-number">${allStats}</h1>
                                         </div>
                                     </div>
 
@@ -245,16 +264,16 @@ async function handlSlideClick(e) {
                                     <div class="Evolution-content">
                                         <div class="image-1">
                                             <img
-                                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+                                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonNumber}.png"
                                                 alt>
                                         </div>
                                         <h1 class="Evolution-number">Lv.16</h1>
                                         <div class="image-1"><img
-                                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
+                                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonNumber + 1}.png"
                                                 alt></div>
                                         <h1 class="Evolution-number">Lv.32</h1>
                                         <div class="image-1"><img
-                                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
+                                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonNumber + 2}.png"
                                                 alt></div>
                                     </div>
 
