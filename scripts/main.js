@@ -12,6 +12,27 @@ let closeIcon;
 let index = 0;
 
 
+const typeColors = {
+    'normal': '#BCBCAC',
+    'fighting': '#BC5442',
+    'flying': '#669AFF',
+    'poison': '#AB549A',
+    'ground': '#DEBC54',
+    'rock': '#BCAC66',
+    'bug': '#ABBC1C',
+    'ghost': '#6666BC',
+    'steel': '#ABACBC',
+    'fire': '#FF421C',
+    'water': '#2F9AFF',
+    'grass': '#78CD54',
+    'electric': '#FFCD30',
+    'psychic': '#FF549A',
+    'ice': '#78DEFF',
+    'dragon': '#7866EF',
+    'dark': '#785442',
+    'fairy': '#FFACFF',
+    'shadow': '#0E2E4C'
+};
 
 
 async function fetchData(API) {
@@ -45,13 +66,14 @@ async function addNewitems() {
 
         let data = await fetchData(API);
         // console.log(data.sprites.versions["generation-v"]["black-white"].animated["front_default"]);
+        
         function returnComponent() {
             if (data.types.length < 2) {
                 // alert(index + 1);
                 return "";
             }
             else {
-                return `<div class="item-ability-2 item-ability">${data.types[1].type.name}</div>`;
+                return `<div style="background-color:${typeColors[data.types[1].type.name]};" class="item-ability-2 item-ability">${data.types[1].type.name}</div>`;
             }
         }
         // alert(data.sprites.other.dream_world.front_default);
@@ -64,13 +86,14 @@ async function addNewitems() {
                         <h1 class="item-number">N°${index + 1}</h1>
                         <h1 class="item-name">${data.name}</h1>
                         <div class="item-buttons">
-                            <div class="item-ability-1 item-ability">${data.types[0].type.name}</div>
+                            <div style="background-color:${typeColors[data.types[0].type.name]};" class="item-ability-1 item-ability">${data.types[0].type.name}</div>
                             ${returnComponent()}
                         </div>
                     </div>
                 </div>
 `
             ;
+        console.log(index);
         index++;
         container.innerHTML += item;
         let itemDom = document.querySelectorAll(".item");
@@ -97,8 +120,9 @@ async function handlSlideClick(e) {
 
 
     let numberElement = e.currentTarget.querySelector(".item-number").textContent;
+    
     const pokemonNumber = parseInt(numberElement.replace("N°", ""));
-    // console.log(pokemonNumber);
+    console.log(" pokemonNumber :", pokemonNumber)
     let API = `https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`;
     let data = await fetchData(API);
     
@@ -109,7 +133,7 @@ async function handlSlideClick(e) {
             return "";
         }
         else {
-            return `<div class="item-ability-2 item-ability">${data.types[1].type.name}</div>`;
+            return `<div style="background-color:${typeColors[data.types[1].type.name]};" class="item-ability-2 item-ability">${data.types[1].type.name}</div>`;
         }
             
         }
@@ -119,7 +143,8 @@ async function handlSlideClick(e) {
             return "";
         }
         else {
-            return `<div class="item-ability-2 item-ability">${data.abilities[1].ability.name}</div>`;
+            return `<div class="height-design"> <div class="height-design-value">${data.abilities[1].ability.name}</div> </div>`;
+            // <div class="height-design-value">${data.abilities[1].ability.name}</div>
         }
 
         }
@@ -155,7 +180,7 @@ async function handlSlideClick(e) {
                             <h1
                                 class="pokedex-slide-content-item-name">${data.name}</h1>
                             <div class="item-buttons">
-                                <div
+                                <div style="background-color:${typeColors[data.types[0].type.name]};"
                                     class="item-ability-1 item-ability">${data.types[0].type.name}</div>
                                     ${returnComponent(data.types)}
                                 
@@ -198,12 +223,7 @@ async function handlSlideClick(e) {
                                             
                                                 
                                         </div>
-                                        <div class="height-design">
-
-                                            <div
-                                                class="height-design-value">${data.abilities[1].ability.name}</div>
-
-                                        </div>
+                                        ${returnComponent(data.abilities)}
                                     </div>
                                 </div>
                                 <div class="stats">
@@ -284,8 +304,9 @@ async function handlSlideClick(e) {
                 </div>
     `;
 
-
+    slide.style.backgroundColor = typeColors[data.types[0].type.name];
     slide.innerHTML = slide_1;
+    
     slideItem = document.querySelector(".pokedex-slide-content-item");
     emptySlide = document.querySelector(".empty-pokemon-display");
     slideItem.style.display = "block";
