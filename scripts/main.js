@@ -1,6 +1,5 @@
 // const item = document.querySelector(".item");
 const body = document.querySelector("body");
-const emptySlide = document.querySelector(".empty-pokemon-display");
 const container = document.querySelector(".pokedex-list");
 const slide = document.querySelector(".pokedex-slide");
 const closeIcon = document.querySelector(".pokedex-slide-content-icon i");
@@ -74,10 +73,8 @@ async function addNewitems() {
         let itemDom = document.querySelectorAll(".item");
         itemDom.forEach(element => {
             element.addEventListener("click", () => {
-                emptySlide.style.display = "none";
                 slide.style.display = "block";
-
-
+                
 
             });
         });
