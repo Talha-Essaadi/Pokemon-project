@@ -301,6 +301,11 @@ async function handlSlideClick(e) {
     })
 
 }
+
+
+
+
+
 window.addEventListener("scroll", () => {
     const scrollTop = window.scrollY;
     const windowHeight = window.innerHeight;
@@ -312,3 +317,26 @@ window.addEventListener("scroll", () => {
 
     }
 });
+
+
+// let search = document.querySelector("input");
+
+// search.addEventListener("input" ,search );
+// async function search() {
+   
+//         let searchResults = [];
+//         API = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1302";
+//         let data = await fetchData(API);
+//         for (let i = 0; i < data.results.length; i++) {
+//             if (data.results[i].name) {
+//                 if (data.results[i].name.replaceAll('-', ' ').includes(search.value.toLowerCase())) {
+//                     searchResults.push(data.results[i].name);
+//                 };
+//             };
+//         };
+
+//         container.innerHTML = '';
+
+
+    
+// };
