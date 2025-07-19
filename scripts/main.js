@@ -4,6 +4,7 @@ const container = document.querySelector(".pokedex-list");
 const slide = document.querySelector(".pokedex-slide");
 
 
+
 let slideItem;
 let emptySlide;
 
@@ -42,6 +43,7 @@ async function fetchData(API) {
         const data = await response.json();
 
 
+
         // container.textContent = JSON.stringify(data, null, 2);
 
         return data;
@@ -66,7 +68,7 @@ async function addNewitems() {
 
         let data = await fetchData(API);
         // console.log(data.sprites.versions["generation-v"]["black-white"].animated["front_default"]);
-        
+
         function returnComponent() {
             if (data.types.length < 2) {
                 // alert(index + 1);
@@ -93,7 +95,7 @@ async function addNewitems() {
                 </div>
 `
             ;
-        console.log(index);
+        // console.log(index);
         index++;
         container.innerHTML += item;
         let itemDom = document.querySelectorAll(".item");
@@ -120,38 +122,38 @@ async function handlSlideClick(e) {
 
 
     let numberElement = e.currentTarget.querySelector(".item-number").textContent;
-    
+
     const pokemonNumber = parseInt(numberElement.replace("N°", ""));
-    console.log(" pokemonNumber :", pokemonNumber)
+    // console.log(" pokemonNumber :", pokemonNumber)
     let API = `https://pokeapi.co/api/v2/pokemon/${pokemonNumber}`;
     let data = await fetchData(API);
-    
+
     function returnComponent(stats) {
-        if (stats == data.types){
-              if (data.types.length < 2) {
-            // alert(index + 1);
-            return "";
-        }
-        else {
-            return `<div style="background-color:${typeColors[data.types[1].type.name]};" class="item-ability-2 item-ability">${data.types[1].type.name}</div>`;
-        }
-            
-        }
-        else {
-              if (data.abilities.length < 2) {
-            // alert(index + 1);
-            return "";
-        }
-        else {
-            return `<div class="height-design"> <div class="height-design-value">${data.abilities[1].ability.name}</div> </div>`;
-            // <div class="height-design-value">${data.abilities[1].ability.name}</div>
-        }
+        if (stats == data.types) {
+            if (data.types.length < 2) {
+                // alert(index + 1);
+                return "";
+            }
+            else {
+                return `<div style="background-color:${typeColors[data.types[1].type.name]};" class="item-ability-2 item-ability">${data.types[1].type.name}</div>`;
+            }
 
         }
-      
+        else {
+            if (data.abilities.length < 2) {
+                // alert(index + 1);
+                return "";
+            }
+            else {
+                return `<div class="height-design"> <div class="height-design-value">${data.abilities[1].ability.name}</div> </div>`;
+                // <div class="height-design-value">${data.abilities[1].ability.name}</div>
+            }
+
+        }
+
     }
 
-    let allStats = data.stats[0].base_stat + data.stats[1].base_stat + data.stats[2].base_stat + data.stats[3].base_stat + data.stats[4].base_stat + data.stats[5].base_stat ;
+    let allStats = data.stats[0].base_stat + data.stats[1].base_stat + data.stats[2].base_stat + data.stats[3].base_stat + data.stats[4].base_stat + data.stats[5].base_stat;
     let slide_1 = `
     
     <div class="pokedex-slide-content">
@@ -304,9 +306,12 @@ async function handlSlideClick(e) {
                 </div>
     `;
 
-    slide.style.backgroundColor = typeColors[data.types[0].type.name];
+    // slide.style.backgroundColor = typeColors[data.types[0].type.name];
+    if (window.innerWidth < 1100) {
+        slide.style.backgroundColor = typeColors[data.types[0].type.name];
+    }
     slide.innerHTML = slide_1;
-    
+
     slideItem = document.querySelector(".pokedex-slide-content-item");
     emptySlide = document.querySelector(".empty-pokemon-display");
     slideItem.style.display = "block";
@@ -343,21 +348,21 @@ window.addEventListener("scroll", () => {
 // let search = document.querySelector("input");
 
 // search.addEventListener("input" ,search );
-// async function search() {
-   
-//         let searchResults = [];
-//         API = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1302";
-//         let data = await fetchData(API);
-//         for (let i = 0; i < data.results.length; i++) {
-//             if (data.results[i].name) {
-//                 if (data.results[i].name.replaceAll('-', ' ').includes(search.value.toLowerCase())) {
-//                     searchResults.push(data.results[i].name);
-//                 };
-//             };
-//         };
+async function search() {
 
-//         container.innerHTML = '';
+    let searchResults = [];
+    API = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1302";
+    let data = await fetchData(API);
+    for (let i = 0; i < data.results.length; i++) {
+        if (data.results[i].name) {
+            if (data.results[i].name.replaceAll('-', ' ').includes(search.value.toLowerCase())) {
+                searchResults.push(data.results[i].name);
+            };
+        };
+    };
+
+    container.innerHTML = '';
 
 
-    
-// };
+
+};
